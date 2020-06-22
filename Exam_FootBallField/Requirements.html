@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Campi da Calcio a 5</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href=".css.css" type="text/css" />
+</head>
+<body>
+<div id="header">
+<h1 class="title">Campi da Calcio a 5</h1>
+</div>
+<!--
+> To generate html and pdf use
+> ```bash
+> $ pandoc -s -f markdown+Smart requirements.md -c .css.css -o requirements.html
+> $ pandoc -s -f markdown+Smart requirements.md -o requirements.pdf
+> ```
+-->
+<p>Develop a system for managing the reservations of a sport facility for playing <em>futsal</em>, a version of five-a-side football.</p>
+<p>All classes must be in the package named <code>it.polito.oop.futsal</code>. The <em>facade</em> class through which all operations are performed is <code>Fields</code>.</p>
+<p>The class named <code>TestApp</code> in the default package contains a synthetic test for the application.</p>
+<p>JDK documentation is accessible from the URL <a href="http://softeng.polito.it/courses/docs/api/index.html" class="uri">http://softeng.polito.it/courses/docs/api/index.html</a>.</p>
+<h2 id="r1-fields">R1: Fields</h2>
+<p>The facility contains different football pitches (fields) with different characteristics, which can be initialized using the method <code>defineFields (Integer ...)</code>, which accepts several field descriptors.</p>
+<p>Each descriptor is an object of the class <code>Features</code>, which includes three <code>Boolean</code> attributes:</p>
+<ul>
+<li><code>indoor</code>: <code>True</code> whether the field is covered;</li>
+<li><code>heating</code>: <code>True</code> whether the field has a heating system, by default the attribute is <code>False</code>;</li>
+<li><code>ac</code>: <code>True</code> whether the field has an air conditioning system, by default the attribute is not present;</li>
+</ul>
+<p>Heating and air conditioning may only be available in covered area (indoor fields). If this condition is not met, an exception <code>FutsalException</code> is thrown.</p>
+<p>The fields are given a number starting from 1, according to the order in which they were defined.</p>
+<p>It is possible to get the total number of fields using the method <code>countFields()</code>, and, the total number of indoor fields with <code>countIndoor()</code>.</p>
+<p>The sports facility has an opening and a closing time which are accessible via getter and setter methods: <code>getOpeningTime()</code>, <code>setOpeningTime()</code>, <code>getClosingTime()</code>, <code>setClosingTime()</code>. The times are represented by strings with the format <code>&quot;hh:mm&quot;</code>, where <code>hh</code> represents the hours and <code>mm</code>, the minutes. Unless specified, assume that the closing time is by midnight.</p>
+<h2 id="r2-associates">R2: Associates</h2>
+<p>The associates of the facility are registered using the method <code>newAssociate(String, String, String)</code>, which gets the name, surname and telephone number, and returns a unique code (<code>int</code>).</p>
+<p>Given the unique code of an associate, it is possible to query for the name, surname and telephone using the methods <code>getFirst()</code>, <code>getLast()</code> and <code>getPhone()</code>. Whether the code does not correspond to any associate, the method throws an exception <code>FutsalException</code>.</p>
+<p>The method <code>countAssociates ()</code> returns the number of registered associates.</p>
+<h2 id="r3-field-reservation">R3: Field Reservation</h2>
+<p>The different fields can be reserved in slot of exactly one hour, starting from the opening time up to the closing time.</p>
+<p>Reserving a field is performed using the method <code>bookField()</code>, which gets the field number, the unique code of an associate, and the starting time.</p>
+<p>The start time of a booking must be aligned to the opening time (i.e., the difference in minutes between the booking and the opening must be a multiple of 60).</p>
+<blockquote>
+<p>For example, if the opening time is <code>&quot;14:30&quot;</code>, it is only possible to book starting at half hours. Thus, <code>&quot;18:30&quot;</code> is valid, <code>&quot;20:15&quot;</code> is not .</p>
+</blockquote>
+<p>If the field number or the associate code or the booking time is not valid, an exception <code>FutsalException</code> is thrown.</p>
+<p>Checking if a field is already booked at a given time is possible using the method <code>isBooked()</code>, which gets the field number and the time, and returns a Boolean value.</p>
+<h2 id="r4-availability-and-occupation-of-fields">R4: Availability and occupation of fields</h2>
+<p>It is possible to get what is the occupation level of a specific field (i.e., the number of reservations) using the method <code>getOccupation()</code>, which gets a field number, and returns the number of reservations made.</p>
+<p>Before making a reservation it is possible to check the availability of the fields that have certain characteristics.</p>
+<p>The method <code>findOptions()</code> gets a schedule and an object <code>Features</code>, and returns the list of options available in the fields that have the required characteristics and are free at the specified time.</p>
+<p>The method returns a list of alternatives represented by objects that implement the <code>FieldOption</code> interface.</p>
+<p>The interface specifies the getter methods <code>getField()</code>, and <code>getOccupation()</code>, which return the field number and the occupation.</p>
+<!--
+The method `toString ()` must return a string with the format `"HH: MM, T = OO%"` where:
+
+- `HH:MM` indicates the time when the table will be free,
+- `T` is the table number,
+- `OO%` is the percentage of table occupancy.
+-->
+<p>The list is sorted by decreasing occupation and then by increasing field number.</p>
+<h2 id="r5-statistics">R5: Statistics</h2>
+<p>The following methods are used to collect statistics:</p>
+<ul>
+<li><code>countServedAssociates()</code> returns the total number of associates who have made at least one reservation.</li>
+<li><code>occupation()</code> returns the occupation level of the facility in terms of percentage. It is calculated as the ratio of the number of reservations in all fields and the number of blocks from one hour available between opening and closing times.</li>
+<li><code>fieldTurnover()</code> returns a map with keys the numbers of the fields, and values ​​the number of reservations at these fields.</li>
+</ul>
+</body>
+</html>
