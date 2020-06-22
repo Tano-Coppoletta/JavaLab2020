@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+
+<html>
+
+
+
+<head>
+
+<meta charset="utf-8">
+
+<title>Requirements</title>
+
+<link href=".css.css" rel="stylesheet" type="text/css">
+
+<style>
+
+@media print {  /* adjusted to print the html to a single-page pdf */
+
+body {
+
+	font-size: 7.5pt;
+
+}
+
+h2 {
+
+	font-size: 120%;
+
+	margin-bottom: 5pt;
+
+	line-height: 110%;
+
+}
+
+}
+
+</style>
+
+</head>
+
+
+
+<body>
+
+
+
+
+
+<h1>Food Delivery</h1>
+
+
+
+<p>Write a Java program for managing a food-delivery service.</p>
+
+
+
+<p>All classes must reside in the package named <b>delivery</b>.</p>
+
+
+
+<p >The class named <b>MainClass</b> in package <b>main</b> contains examples using the main methods.</p>
+
+
+
+<p>
+Students are free to access the <a href="http://softeng.polito.it/courses/docs/api/index.html" target="api" target="_blank">JDK documentation</a>.
+</p>
+
+
+
+
+
+<h2>R1: Delivery</h2>
+
+
+
+<p >The class named <b>Delivery</b> represents the delivery company.
+
+<p>
+
+In order to access the service, a subscription must be activated using the method <b>newCustomer()</b>, which accepts as parameters the name of the customer, his address, telephone number and email; 
+
+the method returns the unique CUSTOMER ID, that is, an integer number starting from 1 and then progressively increased.
+
+If the same email is already associated to another customer, the methods throw an exception <b>DeliveryException</b>.
+
+</p>
+
+
+
+<p>
+    Given a CUSTOMER ID it is possible to retrieve his information using the method <b>customerInfo()</b>, which returns a string formatted as <i>"NAME, ADDRESS, TEL, EMAIL"</i>, e.g., <i>"Rossi Giovanni, C.so Duca degli Abruzzi 25, 011 555666, greds@torino.it"</i>.
+
+    The list of all customers is returned by the method <b>listCustomers()</b>, which yields, for each customer, a string in the same format; strings are sorted alphabetically by name.
+</p>
+
+
+
+<p>
+
+The menu of available food can be defined, one entry at a time, using the method <b>newMenuItem()</b>, which gets as parameters the description, the price, the category, and the time required to prepare it (preparation time).
+
+Existing items in the menu may be found using the method <b>findItem()</b>, which gets a pattern as a string, and returns all menu items whose description includes the pattern (case insensitive), e.g., the pattern <i>"pizza"</i> would match <i>"Chinese noodles"</i>.
+
+The empty pattern (<i>""</i>) is included in all menu items.
+
+<p>
+
+Individual menu items are represented by a string in the format <i>"[CATEGORY] DESCRIPTION : PRICE"</i>, e.g., <i>"[MAIN COURSE] Chinese noodles : 8.50"</i>. 
+
+The result of the search is sorted alphabetically by category, then by description. 
+
+</p>
+
+ Hint:
+<ul class="hint">
+<li>To format a <i>double</i> with two decimal figures
+you can use the method <i>String.format()</i>, e.g., <i>String.format("%.2f", price)</i>
+ </ul>
+ 
+
+
+
+<h2>R2: Orders</h2>
+
+
+
+<p>
+    To create a new order the user calls the method <b>newOrder()</b>, which gets a CUSTOMER ID and returns a unique ORDER ID, that is, an integer number starting at 1 for the first order and then progressively incremented.
+</p>
+
+<p>
+    It is possible to add new items to an order by selecting a menu item via the method <b>addItem()</b>, which gets as parameters the ORDER ID, a search pattern, and the quantity. The method adds the menu item to the order with the specified quantity. The search pattern must identify exactly one menu item and the ORDER ID must be valid, otherwise the method throws the exception <i>DeliveryException</i>.
+
+    If the order already contains the specified item, the quantity is added to the current one. The method returns the final quantity of the specified item in the order.
+
+</p>
+
+
+
+<p>
+    The method <b>showOrder()</b> allows to check the content of an order. It gets the ORDER ID as an argument, and returns the list of items, each one in the format <i>"DESCRIPTION, QUANTITY"</i>.
+
+    If the ORDER ID is not valid, the method throws the exception <i>DeliveryException</i>.
+
+</p>
+
+
+
+<p>
+    The method <b>totalOrder()</b> gets an ORDER ID s parameter and returns the total for that order. That is, the sum of item's quantity multiplied by item's price.
+
+    If the ORDER ID is not valid, the method throws the exception <i>DeliveryException</i>.
+
+</p>
+
+
+
+<h2 >R3: Preparation and delivery</h2>
+
+
+
+<p>
+
+    Each order goes through different states, that can be checked via the method <b>getStatus()</b>, which gets as parameter the ORDER ID and returns the status as an enum of type <i>OrderStatus</i>.
+
+    An order is initially in the state <i>NEW</i>.
+
+</p>
+
+
+
+<p>
+
+An order can be confirmed via the method <b>confirm()</b> that changes the order's status to <i>CONFIRMED</i> and returns an estimate of the delivery time in minutes.
+
+The delivery time is calculated as a sum of (a) a fixed initial delay of 5 minutes, (b) the maximum among the preparation times, and (c) 15 minutes fixed transport time. 
+
+If the ORDER ID is not valid, or the order is not in the state <i>NEW</i>, the method throws the exception <i>DeliveryException</i>.
+
+</p>
+
+
+
+<p>
+    Then, the state of an order may be changed to <i>PREPARATION</i> by the method <b>start()</b>, which returns the estimate delivery time, as the sum of (b) and (c) of the previous point.
+
+    If the ORDER ID is not valid, or the order is not in the state <i>CONFIRMED</i>, the method throws the exception <i>DeliveryException</i>.
+
+</p>
+
+
+
+<p>
+    After preparation, the status of an order may be changed to <i>ON_DELIVERY</i> by the method <b>deliver()</b>, which returns the estimate delivery time, that is, (c) of the previous point.
+
+    If the ORDER ID is not valid, or the order is not in the state <i>PREPARATION</i>, the method throws the exception <i>DeliveryException</i>.
+
+</p>
+
+
+
+<p>
+    Eventually, the delivery is recorded by calling the method <b>complete()</b>, which changes the status to <i>DELIVERED</i>.
+
+    If the ORDER ID is not valid, or the order is not in the state <i>ON_DELIVERY</i>, the method throws the exception <i>DeliveryException</i>.
+
+</p>
+
+
+
+
+
+<h2>R4: Reports</h2>
+
+<p>All the reports are computed including only orders that have been previously confirmed.</p>
+
+
+<p>The method <b>totalCustomer()</b> gets a CUSTOMER ID as parameter and returns the total of his orders.
+
+</p>
+
+
+
+<p>The method <b>bestCustomers()</b> ranks customers according to their orders. It returns a map with the total of the orders as key, and the list of the customers that ordered such a total av value. Customers are represented with strings in the format specified in R1. the map is sorted by decreasing total.
+  </p>
+
+
+<!--
+<p>The method <b>bestItems()</b> ranks menu items according to the total ordered value (i.e., the ordered quantities multiplied by the item's cost, summed over all orders). It returns a list of strings, each one in the format <i>"DESCRIPTION, TOTAL VALUE"</i>, sorted by decreasing value, then by description.
+
+  </p>
+
+
+
+<p>The method <b>popularItems()</b> ranks menu items according to the total quantity ordered. It return a list of of strings in the format <i>"DESCRIPTION, TOTAL QUANTITY"</i>, sorted by decreasing quantity, then by description.
+
+  </p>
+-->
+
+
+<p></p>
+
+</body>
+
+</html>
+
