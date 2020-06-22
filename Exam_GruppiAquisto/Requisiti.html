@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<title>Gestione di gruppi d'acquisto</title>
+<link href=".css.css" rel="stylesheet" type="text/css">
+<style>
+@media print {  /* adjusted to print the html to a single-page pdf */
+body {
+	font-size: 9.2pt;
+}
+</style>
+</head>
+<body>
+
+<h1>Gestione di gruppi d'acquisto 
+<!--(handling purchasing groups)--></h1>
+<p>
+Si scriva un programma per la gestione di gruppi d'acquisto. Le classi si trovano nel package <b>groups</b>; 
+la classe principale &egrave; <b>GroupHandling</b>. La classe <b>Example</b> nel package <b>main</b> presenta esempi di uso dei metodi principali 
+ed esempi dei controlli richiesti.
+Le eccezioni sono di tipo <b>GroupHandlingException</b>.</p>
+
+<p>
+&Egrave; disponibile la <a href="http://softeng.polito.it/courses/docs/api/index.html" target="api" target="_blank">JDK documentation</a>.
+</p>
+
+<h2>R1: Products and suppliers</h2>
+
+<p>
+Il metodo <b>addProduct</b> (String productTypeName, String... supplierNames) lancia un'eccezione se il 
+nome del tipo del prodotto &egrave; duplicato; altrimenti definisce un tipo di prodotto e gli associa i 
+suoi fornitori. Inoltre il metodo definisce i fornitori dati i loro nomi, se non sono gi&agrave; stati 
+definiti in una chiamata precedente.</p>
+<p>
+Il metodo <b>getProductTypes</b> (String supplierName) d&agrave; la lista ordinata alfabeticamente dei 
+nomi dei tipi di prodotti forniti dal fornitore indicato.</p>
+
+<h2>R2: Gruppi</h2>
+
+<p>
+Il metodo <b>addGroup</b> (String name, String productName, String... customerNames) definisce un gruppo 
+d'acquisto (group) specificandone: il nome, il nome del tipo di prodotto al quale si riferisce e i nomi 
+dei clienti che compongono il gruppo. Lancia un'eccezione se il nome del gruppo &egrave; duplicato o se 
+il tipo di prodotto non &egrave; stato definito. Nota: un cliente pu&ograve; partecipare a diversi gruppi.</p>
+<p>
+Il metodo <b>getGroups</b> (String customerName) d&agrave; la lista ordinata alfabeticamente dei nomi dei 
+gruppi ai quali partecipa il cliente dato. </p>
+
+
+<h2>R3: Fornitori e offerte</h2>
+
+<p>
+Il metodo <b>setSuppliers</b> (String groupName, String... supplierNames) stabilisce i fornitori del gruppo 
+indicati per nome. Se un fornitore risulta indefinito oppure non tratta il tipo di prodotto richiesto dal 
+gruppo il metodo lancia un'eccezione e non associa alcun fornitore al gruppo.  </p>
+
+<p>
+Il metodo <b>addBid</b> (String groupName, String supplierName, int price) definisce un'offerta (bid) per 
+il gruppo indicando il fornitore e il prezzo. Lancia un'eccezione se il fornitore non &egrave; collegato al gruppo.</p>
+
+<p>
+Il metodo <b>getBids</b> (String groupName) fornisce una stringa contenente le offerte ordinate per 
+prezzo crescente (e a parit&agrave; di prezzo per nome del fornitore in ordine alfabetico). 
+Le offerte sono separate da virgole e contengono il nome del fornitore e il prezzo separati da ":". 
+Un esempio &egrave; il seguente: <i>"s2:100,s1:120,s3:120"</i>.
+</p>
+
+<h2>R4: Votazioni</h2>
+
+<p>
+Il metodo <b>vote</b>(String groupName, String customerName, String supplierName) consente ad un cliente di 
+scegliere un'offerta associata al gruppo dato: l'offerta &egrave; quella presentata dal fornitore indicato. 
+Il metodo lancia un'eccezione se il cliente non partecipa al gruppo o se il fornitore non ha presentato 
+un'offerta per il gruppo.</p>
+
+<p>
+Il metodo <b>getVotes</b> (String groupName) fornisce una stringa contenente i risultati per fornitore con i 
+fornitori ordinati alfabeticamente. I risultati sono separati da virgole e contengono il nome del fornitore 
+e il numero dei voti separati da ":". Compaiono soltanto i fornitori che hanno ricevuto almeno un voto.</p>
+
+<p>
+Il metodo <b>getWinningBid</b> (String groupName) d&agrave; l'offerta vincente del gruppo. 
+L'offerta vincente &egrave; quella che ha il maggior numero di voti e a parit&agrave; di voti quella con prezzo inferiore. 
+L'offerta vincente &egrave; indicata con la stringa contenente il nome del fornitore e il numero dei voti 
+separati da ":". Se non ci sono offerte il metodo d&agrave; <i>null</i>.</p>
+
+
+<h2>R5: Statistiche</h2>
+
+<p>
+Il metodo <b>maxPricePerProductType</b> d&agrave; il prezzo massimo delle offerte per tipo di prodotto; 
+i tipi di prodotto sono ordinati alfabeticamente. I tipi di prodotto privi di offerte non sono considerati. 
+Nota: il tipo di prodotto di un'offerta (bid) &egrave; quello del gruppo a cui si riferisce l'offerta.</p>
+<p>
+Il metodo <b>suppliersPerNumberOfBids</b> d&agrave; la lista dei fornitori (ordinati alfabeticamente per nome) 
+per numero decrescente di offerte; i fornitori senza offerte non sono considerati.</p>
+<p>
+Il metodo <b>numberOfCustomersPerProductType</b> d&agrave; il numero di clienti per tipo di prodotto; 
+i tipi di prodotti sono ordinati alfabeticamente (quelli privi di clienti non sono considerati). 
+Nota: I tipi di prodotti di un cliente sono quelli dei gruppi ai quali partecipa.</p>
+
+</body>
+</html>
