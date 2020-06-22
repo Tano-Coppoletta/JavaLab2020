@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Requisiti</title>
+	<link href=".css.css" rel="stylesheet" type="text/css">
+	
+<style>
+@media print {  /* adjusted to print the html to a single-page pdf */
+body {
+	font-size: 8pt;
+}
+h2 {
+	font-size: 120%;
+	margin-bottom: 5pt;
+	line-height: 110%;
+}
+.noprint {
+	display: none;
+}
+}
+.en {
+	display: none;
+	}
+</style>
+<script src=".js.js"></script>
+</head>
+
+<body>
+
+<h1>Milliways</h1>
+
+
+<p class="it"><em>Milliways</em>, noto anche come <em>Il Ristorante alla Fine dell'Universo</em>, 
+è un esercizio immaginario descritto da Douglas Adams nel suo <em>Guida Galattica per Autostoppisti</em>.
+Nei sui vasti saloni (hall) il ristorante accoglie diverse razze, con requisiti diversi ed eventualmente incompatibili.</p> 
+<p class="en"><em>Milliways</em>, also known as <em>The Restaurant at the End of the Universe</em>, 
+is a fictional eating place described by Douglas Adams in his <em>The Hitchhiker’s Guide to the Galaxy</em>. 
+In its vast halls, the restaurant accommodates different races, with different, possibly incompatible, requirements.</p>
+
+
+<p class="en">All classes must reside in the package named <b>it.polito.oop.milliways</b>.</p>
+<p class="it">Tutte le classi devono trovarsi nel packages <b>it.polito.oop.milliways</b>.</p>
+
+<p class="en">The class named <b>Main</b> in package <b>main</b> contains examples using the main methods.</p>
+<p class="it">La classe <b>Main</b> nel package <b>main</b> contiene esempi di uso del metodi principali.</p>
+
+<p class="en">
+Students are free to access the <a href="http://softeng.polito.it/courses/docs/api/index.html" target="api" target="_blank">JDK documentation</a>.
+</p>
+<p class="it">
+È possibile accedere liberamente alla 
+<a href="http://softeng.polito.it/courses/docs/api/index.html" target="api" target="_blank">Documentazione JDK</a>.
+</p>
+
+<section class="en">
+<h2>R1: Races</h2>
+
+The facade class for the system is <b>Restaurant</b> through which all objects are created.
+
+<p>The class <b>Race</b> represents a race in the multiverse. 
+Each race has a unique name, specified as argument to the factory method <b>defineRace()</b> 
+in class <i>Restaurant</i>;
+if the same name is specified when creating two objects the exception <b>MilliwaysException</b> 
+is thrown. 
+The method returns an object of class <b>Race</b>. The method <b>getName</b> returns the name of the race.</p>
+
+<p>A <em>race</em> has certain <em>requirements</em>. 
+A requirements is a <code>String</code>, such as <i>"Class M atmosphere (nitrogen-oxygen)"</i>, 
+or <i>"Low gravity (less than 2g)"</i>. The requirements for a given race are specified using the 
+method <b>addRequirement</b>; if the same requirement is added more than once, 
+the method throws the exception <b>MilliwaysException</b>. 
+The method <b>getRequirements</b> returns the list of all requirements for the race, 
+sorted alphabetically.</p>
+</section>
+
+<section class="it" lang="it">
+<h2>R1: Razze</h2>
+
+La classe principale del sistema è <b>Restaurant</b>, tramite essa vengono creati tutti gli oggetti.
+
+<p>La classe <b>Race</b> rappresenta una razza nel multiverso.
+Ogni razza ha un nome unico, che viene passato come parametro al metodo di creazione  <b>defineRace()</b> della classe <i>Restaurant</i>;
+se viene specificato un nome duplicato nella creazione viene lanciata un'eccezione <b>MilliwaysException</b>.
+Il metodo restituisce un oggetto di classe <b>Race</b>. Il metodo <b>getName()</b> restituisce il nome della razza.
+</p>
+
+<p>Una <em>razza</em> ha certi <em>requisiti</em>. 
+Un requisito è una <code>String</code>, tipo <i>"Class M atmosphere (nitrogen-oxygen)"</i>, 
+oppure <i>"Low gravity (less than 2g)"</i>. I requisiti per una data razza sono specificati
+tramite il metodo <b>addRequirement()</b>; se lo stesso requisito è aggiunto più di una volta
+viene lanciata l'eccezione <b>MilliwaysException</b>.
+Il metodo <b>getRequirements()</b> restituisce la lista dei requisiti di un razza ordinati alfabeticamente.
+</p>
+</section>
+
+
+
+
+
+<section class="en">
+<h2>R2: Party</h2>
+
+<p>The class <b>Party</b> represents a group of table companions. A new party can be created by means of the method 
+<b>createParty()</b> in class <i>Restaurant</i>.</p>
+<p>A party is composed of companions from different races. The method <b>addCompanions()</b> adds to the party a given
+number of companions of a certain <em>race</em>.</p>
+<p>The method <b>getNum()</b> with no arguments returns the total number of companions in the group. 
+When a <b>race</b> is specified it returns the number of companions in the group of that specific race.</p>
+<p>The method <b>getRequirements()</b> return a list of all the requirements for the party, that is, 
+the union of requirements of all the races composing the party, sorted in alphabetically and without repetitions.</p>
+<p>The method <b>getDescription()</b> returns the composition of the party as a map having 
+the races names as keys and their relative numbers as values.</p>
+</section>
+
+<section class="it">
+<h2>R2: Gruppi</h2>
+
+<p>La classe <b>Party</b> rappresenta un gruppo di compagni di tavola. È possibile creare un nuovo gruppo tramite il metodo 
+<b>createParty()</b> della classe <i>Restaurant</i>.</p>
+<p>Un gruppo è composto da compagni di diverse razze. Il metodo <b>addCompanions()</b> aggiunge al gruppo un dato numero
+di compagni di una data razza.</p>
+<p>Il metodo <b>getNum()</b> senza argomenti restituisce il numero di compagni nel gruppo. 
+Quando viene passata una razza restituisce il numero di compagni di tale razza nel gruppo.</p>
+<p>Il metodo <b>getRequirements()</b> restituisce una lista con tutti i requisiti del gruppo , ovvero,
+l'unione dei requisiti di tutte le razze che compongono il gruppo, ordinati alfabeticamente e senza ripetizioni.</p> 
+<p>Il metodo <b>getDescription()</b> restituisce la composizione del gruppo come <i>Map</i> avente come chiavi i nomi della razze 
+e come valori le corrispondenti numerosità.</p>
+</section>
+
+
+
+
+<section class="en">
+<h2 >R3: Hall</h2>
+
+<p>The class <b>Hall</b> represents a hall at Milliways. Halls have infinity capacity and a certain number of <em>facilities</em>. 
+Each hall has a unique numeric <code>id</code>, specified when an object is created using method <b>defineHall()</b> in class <i>Restaurant</i>. 
+If the same id is specified when creating two objects the exception <i>MilliwaysException</i> is thrown; the method <b>getId()</b> 
+returns the <code>id</code> of a hall.</p>
+<p>The method <b>addFacility()</b> add a facility to the hall. A facility is represented by a <i>String</i>, 
+for instance <i>"Class X atmosphere (methane)"</i>; if the same facility is added more than once, the method throws the exception <i>MilliwaysException</i>. 
+The method <b>getFacilities()</b> returns the list of all facilities available in the hall, sorted alphabetically.</p>
+<p>The method <b>isSuitable</b> check whether a party may be accommodated in the hall, that is, 
+all its requirements are satisfied by the hall’s facilities. 
+A facility meets a requirement when the strings describing them are equal.</p>
+</section>
+
+<section class="it">
+<h2 >R3: Saloni</h2>
+
+<p>La classe <b>Hall</b> rappresenta un salone del Milliways. I saloni hanno capacità infinita ed un certo numero di <em>servizi</em>.
+Ogni salone ha un codice numerico univoco <i>id</i>, specificato quando viene creato tramite il metodo <b>defineHall()</b> della classe <i>Restaurant</i>.
+
+Se lo stesso id viene specificato più volte viene lanciata un'eccezione <i>MilliwaysException</i>; 
+il metodo <b>getId()</b> della classe <i>Hall</i> restituisce il codice univoco del salone. 
+
+<p>Il metodo <b>addFacility()</b> permette di aggiungere un servizio ad un salone. Un servizio è rappresentato da una <i>String</i>,
+per esempio <i>"Class X atmosphere (methane)"</i>; se lo stesso servizio viene aggiunto più volte allo stesso salone viene lanciata
+l'eccesione <i>MilliwaysException</i>.
+Il metodo <b>getFacilities()</b> restituisce la lista di tutti i servizi disponibili nel salore, ordinati alfabeticamente. </p>
+
+<p>Il metodo <b>isSuitable</b> verifica se un gruppo può essere ospitato in un salone, ovvero se tutti i suoi requisiti sono soddisfatti
+dai servizi offerti dal salone. Un servizio soddisfa un requisito se le stringhe che li descrivono sono uguali.
+</p>
+</section>
+
+
+
+
+<section class="en">
+<h2>R4: Restaurant</h2>
+
+<p>The class <b>Restaurant</b> represent the whole Milliways, and it is used to record the parties.</p>
+<p>The method <b>getHallList()</b> returns the list of all halls, in the order they have been inserted.</p>
+
+<p>The method <b>seat()</b> called with two arguments, accommodates the given party in the given hall; 
+if the hall was not suitable for the party (i.e. <i>isSuitable()</i> is <i>false</i>), the exception <i>MilliwaysException</i> is thrown. 
+When <i>seat</i> is invoked with only the <em>party</em> as argument, it scans all the halls in the restaurant 
+and accommodates the party in the first suitable one. Halls are checked in order they have been added, 
+and if not suitable hall is found, the exception <i>MilliwaysException</i> is thrown. 
+Both methods returns the <em>hall</em> where the party has been successfully seated.</p>
+
+<h2>R5: Stats</h2>
+
+<p>Class <i>Restaurant</i> provides a few methods to compute stats on the Milliways.</p>
+
+<p>The method <b>statComposition()</b> summarizes compositions of the parties, that is, the beings that were seated at the restaurant, 
+according to their race. The method returns a <i>Map</i> with the <em>race</em> as key, 
+and the total number of table companions recorded so far in seated parties.</p>
+
+<p>The method <b>statFacility()</b> reports all facilities available in the restaurant, 
+sorted by the descending number of halls where they are available and then alphabetically.</p>
+
+<p>The method <b>statHalls()</b> returns a <i>Map</i> having as  key a number of facilities and as value the list
+of halls codes providing that number of facilities. Keys and halls are in ascending order.</p>
+</section>
+
+<section class="it">
+<h2>R4: Ristorante</h2>
+
+<p>La classe <i>Restaurant</i> rappresenta l'intero Milliways, ed è utilizzata per sistemare i gruppi.</p>
+<p>Il metodo <b>getHallList()</b> restituisce la lista dei saloni nell'ordine con cui sono stati creati.</p>
+
+<p>Il metodo <b>seat()</b> accetta due parametri e alloca il gruppo dato nel salone indicato; 
+se il salone non può ospitare il gruppo (cioè <i>isSuitable()</i> è <i>false</i>), viene lanciata un'eccezione <i>MilliwaysException</i>. 
+Quando <i>seat()</i> viene invocato con un solo parametro (un gruppo), scandisce i saloni del ristorante 
+e alloca il gruppo nel primo salone che lo può accogliere. I saloni sono verificati nell'ordine in cui
+sono stati creati, e se non viene trovato alcun salone adatto viene lanciata un'eccezione <i>MilliwaysException</i>.
+Entrambi i metodi restituiscono il codice del salone in cui il gruppo è stato effettivamente allocato.</p>
+
+<h2>R5: Statistiche</h2>
+
+<p>La classe <i>Restaurant</i> permette di calcolare alcune statistiche su Milliways.</p>
+
+<p>Il metodo <b>statComposition()</b> riassume la composizione dei gruppi, ovvero gli esseri che sono stati seduti al ristorante, 
+secondo la loro razza. Il metodo restituisce una <i>Map</i> con la razza come chiave, e il numero totale di esseri di tale
+razza presenti nei diversi gruppi che sono stati seduti.</p>
+
+<p>Il metodo <b>statFacility()</b> restituisce tutti i servizi disponibili nel ristorante, ordinati in base al numero decrescente 
+di saloni in cui sono disponibili e, a parità di numero, alfabeticamente.</p>
+
+<p>Il metodo <b>statHalls()</b> restituisce una <i>Map</i> avente per chiave il numero di servizi disponibili e come
+valore la lista dei codici dei saloni che offrono tale numero di servizi. Sia le chiavi che i saloni sono in ordine crescente.</p>
+</section>
+
+</body>
+
+</html>
+

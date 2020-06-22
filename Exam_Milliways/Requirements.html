@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Requirements</title>
+	<link href=".css.css" rel="stylesheet" type="text/css">
+
+<style>
+@media print {  /* adjusted to print the html to a single-page pdf */
+body {
+	font-size: 9pt;
+}
+h2 {
+	font-size: 120%;
+	margin-bottom: 5pt;
+	line-height: 110%;
+}
+}
+</style>
+</head>
+
+<body>
+
+
+<h1>Milliways</h1>
+
+
+
+<p><em>Milliways</em>, also known as <em>The Restaurant at the End of the Universe</em>, 
+is a fictional eating place described by Douglas Adams in his <em>The Hitchhiker’s Guide to the Galaxy</em>. 
+In its vast halls, the restaurant accommodates different races, with different, possibly incompatible, requirements.</p>
+
+
+<p>All classes must reside in the package named <b>it.polito.oop.milliways</b>.</p>
+
+<p >The class named <b>Main</b> in package <b>main</b> contains examples using the main methods.</p>
+
+<p>
+Students are free to access the <a href="http://softeng.polito.it/courses/docs/api/index.html" target="api" target="_blank">JDK documentation</a>.
+</p>
+
+
+
+<h2>R1: Races</h2>
+
+The facade class for the system is <b>Restaurant</b> through which all objects are created.
+
+<p>The class <b>Race</b> represents a race in the multiverse. 
+Each race has a unique name, specified as argument to the factory method <b>defineRace()</b> 
+in class <i>Restaurant</i>;
+if the same name is specified when creating two objects the exception <b>MilliwaysException</b> 
+is thrown. 
+The method returns an object of class <b>Race</b>. The method <b>getName</b> returns the name of the race.</p>
+
+<p>A <em>race</em> has certain <em>requirements</em>. 
+A requirements is a <code>String</code>, such as <i>"Class M atmosphere (nitrogen-oxygen)"</i>, 
+or <i>"Low gravity (less than 2g)"</i>. The requirements for a given race are specified using the 
+method <b>addRequirement</b>; if the same requirement is added more than once, 
+the method throws the exception <b>MilliwaysException</b>. 
+The method <b>getRequirements</b> returns the list of all requirements for the race, 
+sorted alphabetically.</p>
+
+
+
+<h2>R2: Party</h2>
+
+<p>The class <b>Party</b> represents a group of table companions. A new party can be created by means of the method 
+<b>createParty()</b> in class <i>Restaurant</i>.</p>
+<p>A party is composed of companions from different races. The method <b>addCompanions()</b> adds to the party a given
+number of companions of a certain <em>race</em>.</p>
+<p>The method <b>getNum()</b> with no arguments returns the total number of companions in the group. 
+When a <b>race</b> is specified it returns the number of companions in the group of that specific race.</p>
+<p>The method <b>getRequirements()</b> return a list of all the requirements for the party, that is, 
+the union of requirements of all the races composing the party, sorted in alphabetically and without repetitions.</p>
+<p>The method <b>getDescription()</b> returns the composition of the party as a <i>Map</i> having 
+the races names as keys and their relative numbers as values.</p>
+
+
+
+<h2 >R3: Hall</h2>
+
+<p>The class <b>Hall</b> represents a hall at Milliways. Halls have infinity capacity and a certain number of <em>facilities</em>. 
+Each hall has a unique numeric <code>id</code>, specified when an object is created using method <b>defineHall()</b> in class <i>Restaurant</i>. 
+If the same id is specified when creating two objects the exception <i>MilliwaysException</i> is thrown; the method <b>getId()</b> 
+returns the <code>id</code> of a hall.</p>
+<p>The method <b>addFacility()</b> add a facility to the hall. A facility is represented by a <i>String</i>, 
+for instance <i>"Class X atmosphere (methane)"</i>; if the same facility is added more than once, the method throws the exception <i>MilliwaysException</i>. 
+The method <b>getFacilities()</b> returns the list of all facilities available in the hall, sorted alphabetically.</p>
+<p>The method <b>isSuitable</b> check whether a party may be accommodated in the hall, that is, 
+all its requirements are satisfied by the hall’s facilities. 
+A facility meets a requirement when the strings describing them are equal.</p>
+
+
+
+<h2>R4: Restaurant</h2>
+
+<p>The class <b>Restaurant</b> represent the whole Milliways, and it is used to record the parties.</p>
+<p>The method <b>getHallList()</b> returns the list of all halls, in the order they have been inserted.</p>
+
+<p>The method <b>seat()</b> called with two arguments, accommodates the given party in the given hall; 
+if the hall was not suitable for the party (i.e. <i>isSuitable()</i> is <i>false</i>), the exception <i>MilliwaysException</i> is thrown. 
+When <i>seat</i> is invoked with only the <em>party</em> as argument, it scans all the halls in the restaurant 
+and accommodates the party in the first suitable one. Halls are checked in order they have been added, 
+and if not suitable hall is found, the exception <i>MilliwaysException</i> is thrown. 
+Both methods returns the <em>hall</em> where the party has been successfully seated.</p>
+
+
+
+<h2>R5: Stats</h2>
+
+<p>Class <i>Restaurant</i> provides a few methods to compute stats on the Milliways.</p>
+
+<p>The method <b>statComposition()</b> summarizes compositions of the parties, that is, the beings that were seated at the restaurant, 
+according to their race. The method returns a <i>Map</i> with the <em>race</em> as key, 
+and the total number of table companions recorded so far in seated parties.</p>
+
+<p>The method <b>statFacility()</b> reports all facilities available in the restaurant, 
+sorted by the descending number of halls where they are available and then alphabetically.</p>
+
+<p>The method <b>statHalls()</b> returns a <i>Map</i> having as  key a number of facilities and as value the list
+of halls codes providing that number of facilities. Keys and halls are in ascending order.</p>
+
+
+</body>
+
+</html>
+
